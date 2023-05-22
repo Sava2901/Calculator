@@ -1,0 +1,79 @@
+html{
+    background-color: antiquewhite;
+}
+
+body{
+    display: flex;
+    height: 98vh;
+    flex-direction: column;
+}
+
+.gridContainer{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:15vh;
+    width: 300px;
+    height: 600px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    background-color:gray;
+    border: 25px solid gray;
+    border-radius: 10px;
+}
+
+.gridChild{
+    background-color: darkgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.displayScreen {
+    padding: 20px;
+    border: 1px black solid;
+    grid-column: span 4;
+    grid-row: span 2;
+    justify-content:flex-end;
+}
+
+.calculation{
+    position: fixed;
+    align-self:baseline;
+}
+
+.userInput{
+    align-self: end;
+    font-size: 50px;
+}
+
+.clearButton, .deleteButton{
+    grid-column: span 2;
+}
+
+.warning{
+    display: flex;
+    justify-content: center;
+    height: 30px;
+    padding-top: 10px;
+}
+
+.text{
+    color: black;
+    font-weight: 600;
+    font-size: 20px;
+    font-family: "Roboto Mono";
+}
+
+footer{
+    font-family: "Roboto Mono";
+    font-size: 20px;
+
+    margin-top: auto;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
