@@ -7,6 +7,7 @@ const deleteButton = document.querySelector(".deleteButton");
 const clearButton = document.querySelector(".clearButton");
 let curentOperator = "initial";
 let calculated = false;
+let hasSign = false;
 
 numberButton.forEach(button => {
     button.addEventListener("click", () => {
@@ -14,12 +15,22 @@ numberButton.forEach(button => {
             clearScreen(userInput);
             clearScreen(calculation);
         }
-        modifyUserInputScreen(button.textContent);
+        if (userInput.textContent.includes(".") && button.textContent == ".") {
+            return;
+        }
+        if (button.textContent == ".") {
+            modifyUserInputScreen("0.");
+        } else {
+            modifyUserInputScreen(button.textContent);
+        }
     });
 });
 
 operatorButton.forEach(button => {
     button.addEventListener("click", () => {
+        if (userInput.textContent == "NaN" || userInput.textContent == "Infinity") {
+            return;
+        }
         curentOperator = button.textContent;
         modifyCalculationScreen();
         clearScreen(userInput);
@@ -34,6 +45,9 @@ clearButton.addEventListener("click", () => {
 });
 
 deleteButton.addEventListener("click", () => {
+    if (userInput.textContent == "NaN" || userInput.textContent == "Infinity") {
+        return;
+    }
     if (userInput.textContent < 10) {
         userInput.textContent = "0";
     }
@@ -61,11 +75,20 @@ function modifyUserInputScreen(number) {
 }
 
 function modifyCalculationScreen() {
-    if (userInput.textContent === "0" || curentOperator === "initial") {
+    if (userInput.textContent == "0.") {
+        userInput.textContent = "0";
+    }
+    if (userInput.textContent === "0" && curentOperator === "initial") {
         return;
     }
     else {
-        calculation.textContent = userInput.textContent + " " + curentOperator;
+        if (!hasSign) {
+            calculation.textContent = userInput.textContent + " " + curentOperator;
+            hasSign = true;
+        }
+        else {
+            calculation.textContent = calculation.textContent.slice(0, -1) + curentOperator;
+        }
     }
 }
 
@@ -76,25 +99,29 @@ function clearScreen(screen) {
 }
 
 function maxLenght(number) {
-    if (number.textContent.length > 7) {
-        number.textContent = number.textContent.slice(0, 7 - number.textContent.length);
+    if (number.textContent.length > 8) {
+        number.textContent = number.textContent.slice(0, 8 - number.textContent.length);
         
+        if(number.textContent[number.textContent.length - 1] == "."){
+            number.textContent = number.textContent.slice(0, -1);
+        }
+        if(number.textContent.includes(".") && number.textContent[number.textContent.length - 1] == "0"){
+            number.textContent = number.textContent.slice(0, -1);
+        }
+
         const warning = document.querySelector(".warning");
         warning.textContent = "Calculator is unable to show the exact result of the calculation";
     }
-    else
-    {
+    else {
         clearWarning();
     }
 }
 
-function clearWarning()
-{
+function clearWarning() {
     const warning = document.querySelector(".warning");
-        if(warning.children != null)
-        {
-            warning.textContent = "";
-        }
+    if (warning.children != null) {
+        warning.textContent = "";
+    }
 }
 
 function compute() {
@@ -124,5 +151,6 @@ function compute() {
 
     curentOperator = "initial";
     calculated = true;
+    hasSign = false;
     maxLenght(userInput);
 }
