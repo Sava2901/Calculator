@@ -1,3 +1,3 @@
 # Calculator
 
-[Live Version](https://git@github.com:Sava2901/Calculator.git)
+[Live Version](https://Sava2901.github.io/Calculator)
