@@ -18,11 +18,7 @@ numberButton.forEach(button => {
         if (userInput.textContent.includes(".") && button.textContent == ".") {
             return;
         }
-        if (button.textContent == ".") {
-            modifyUserInputScreen("0.");
-        } else {
-            modifyUserInputScreen(button.textContent);
-        }
+        modifyUserInputScreen(button.textContent);
     });
 });
 
@@ -65,7 +61,7 @@ function modifyUserInputScreen(number) {
         return;
     }
     else {
-        if (userInput.textContent === "0") {
+        if (userInput.textContent === "0" && number !== ".") {
             userInput.textContent = number;
         }
         else {
@@ -103,9 +99,6 @@ function maxLenght(number) {
         number.textContent = number.textContent.slice(0, 8 - number.textContent.length);
         
         if(number.textContent[number.textContent.length - 1] == "."){
-            number.textContent = number.textContent.slice(0, -1);
-        }
-        if(number.textContent.includes(".") && number.textContent[number.textContent.length - 1] == "0"){
             number.textContent = number.textContent.slice(0, -1);
         }
 
